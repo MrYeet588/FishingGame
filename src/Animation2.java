@@ -13,7 +13,6 @@ public class Animation2 implements ActionListener {
         this.frames = frames;
         currentFrame = 0;
         timer = new Timer(delay, this);
-        timer.start();
     }
 
     public BufferedImage getActiveFrame() {
@@ -22,13 +21,20 @@ public class Animation2 implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof Timer) {
-            if(frames.indexOf(currentFrame) == 0){
-                timer.stop();
-            }
             //This advances the animation to the next frame
             //It also uses modulus to reset the frame to the beginning after the last frame
             //In other words, this allows our animation to loop
             currentFrame = (currentFrame + 1) % frames.size();
+            if(currentFrame == frames.size() - 1){
+                timer.stop();
+            }
         }
+    }
+
+    public void startTimer(){
+        timer.restart();
+    }
+    public boolean timerOn(){
+        return timer.isRunning();
     }
 }

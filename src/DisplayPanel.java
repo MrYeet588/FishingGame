@@ -10,28 +10,37 @@ public class DisplayPanel extends JPanel implements ActionListener, MouseListene
     private FishingRodFishing fishingRodFishing;
     private Timer timer;
     private boolean fishingRodOut;
-    private boolean fishingRodAction;
-    private FishingRodPullOut fishingRodPullOut;
+    private FishingRodPullIn fishingRodPullIn;
+    private boolean temp;
+    private boolean fishingTime;
 
     public DisplayPanel() {
         fishingRodOut = false;
-        fishingRodAction = false;
+        temp = false;
         addMouseListener(this);
         background = new Background();
         fishingRodFishing = new FishingRodFishing();
-        fishingRodPullOut = new FishingRodPullOut();
+        fishingRodPullIn = new FishingRodPullIn();
         timer = new Timer(1, this);
         timer.start();
+        fishingRodPullIn.storeImages();
+
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(background.getBackground(),0 ,0,null);
-        if (fishingRodAction) {
-            g.drawImage(fishingRodPullOut.getFishingRodPullOut(), 0, 0, null);
-            g.drawImage(fishingRodFishing.getFishingRodFishing(), 0, 0, null);
+        if (fishingRodOut && fishingRodPullIn.getAnimation().timerOn()) {
+                g.drawImage(fishingRodPullIn.getFishingRodAnimation(), 0, 0, null);
+        } else {
+            if (!fishingTime){
+                g.drawImage(fishingRodPullIn.getFishingRodAnimation(), 0, 0, null);
+            } else {
+                g.drawImage(fishingRodFishing.getFishingRodFishing(), 0, 0, null);
+            }
         }
+
     }
 
     @Override
@@ -54,11 +63,18 @@ public class DisplayPanel extends JPanel implements ActionListener, MouseListene
         if (e.getButton() == MouseEvent.BUTTON1) {
             if (!fishingRodOut) {
                 fishingRodOut = true;
-                fishingRodAction = true;
-                System.out.println("start");
+                temp = true;
+                fishingRodPullIn.storeImages();
+                fishingRodPullIn.getAnimation().startTimer();
+                fishingTime = true;
+                System.out.println("Fishing rod released");
             }else {
+                temp = false;
+                fishingRodPullIn.storeImages2();
                 fishingRodOut = false;
-                System.out.println("Stop");
+                fishingRodPullIn.getAnimation().startTimer();
+                fishingTime = false;
+                System.out.println("fishing rod pulled back");
             }
         }
     }
