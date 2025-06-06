@@ -13,6 +13,10 @@ public class DisplayPanel extends JPanel implements ActionListener, MouseListene
     private FishingRodPullIn fishingRodPullIn;
     private boolean temp;
     private boolean fishingTime;
+    private int fishingTimerTime;
+    private boolean fishOnHook;
+    private Fish fish;
+    private fishingTimer fishingTimer;
 
     public DisplayPanel() {
         fishingRodOut = false;
@@ -21,15 +25,19 @@ public class DisplayPanel extends JPanel implements ActionListener, MouseListene
         background = new Background();
         fishingRodFishing = new FishingRodFishing();
         fishingRodPullIn = new FishingRodPullIn();
+        fishingTimer = new fishingTimer();
+        fishingRodPullIn.storeImages();
+        fishOnHook = false;
         timer = new Timer(1, this);
         timer.start();
-        fishingRodPullIn.storeImages();
 
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.drawString(String.valueOf(fishingTimerTime), 10, 10);
+
         g.drawImage(background.getBackground(),0 ,0,null);
         if (fishingRodOut && fishingRodPullIn.getAnimation().timerOn()) {
                 g.drawImage(fishingRodPullIn.getFishingRodAnimation(), 0, 0, null);
@@ -40,8 +48,33 @@ public class DisplayPanel extends JPanel implements ActionListener, MouseListene
                 g.drawImage(fishingRodFishing.getFishingRodFishing(), 0, 0, null);
             }
         }
-
+        if (fishingTime){
+            fishingTimer.startTimer();
+            fishingTimerTime = fishingTimer.getNum();
+            int temp2 = (int) (Math.random() * 11) - 10;
+            if (fishingTimerTime >= temp2 - 5 && fishingTimerTime <= temp2 + 5) {
+                fishOnHook = true;
+            } else {
+                fishOnHook = false;
+            }
+            if (fishOnHook){
+                g.drawString("Fish on hook", 400, 10);
+                System.out.println("Fish on hook");
+                fishingLogic();
+                if (!temp) {
+                    g.drawString("You caught a " + fish.fishInfo(), 400, 10);
+                    System.out.println("You caught a " + fish.fishInfo());
+                    fishingTimer.stopTimer();
+                    fishOnHook = false;
+                }
+            }
+        }
     }
+
+    public void fishingLogic(){
+        fish = new Fish();
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

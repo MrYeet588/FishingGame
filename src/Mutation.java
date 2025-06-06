@@ -1,13 +1,17 @@
 public class Mutation {
-    private int multiplier;
+    private double multiplier;
     private String name;
-    public Mutation(int multiplier, String name){
-        this.multiplier = multiplier;
+    public Mutation(String name){
         this.name = name;
+        if (name.equals("Rotting")) {
+            multiplier = 0.30;
+        } else if (name.equals("Neon")) {
+            multiplier = 100;
+        }
     }
 
 
-    public int getMultiplier() {
+    public double getMultiplier() {
         return multiplier;
     }
 }
