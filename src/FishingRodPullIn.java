@@ -21,7 +21,7 @@ public class FishingRodPullIn {
                 System.out.println(e.getMessage());
             }
         }
-        animation = new Animation2(images, 150);
+        animation = new Animation2(images, 100);
     }
     public void storeImages2(){
         ArrayList<BufferedImage> images2 = new ArrayList<>();
@@ -34,7 +34,7 @@ public class FishingRodPullIn {
                 System.out.println(e.getMessage());
             }
         }
-        animation = new Animation2(images2, 150);
+        animation = new Animation2(images2, 100);
     }
 
     public BufferedImage getFishingRodAnimation() {

@@ -24,7 +24,7 @@ public class Background {
                 System.out.println(e.getMessage());
             }
         }
-        animation = new Animation(images, 175);
+        animation = new Animation(images, 200);
     }
 
     public void setBackground() {

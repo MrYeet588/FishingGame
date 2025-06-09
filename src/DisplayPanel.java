@@ -11,12 +11,10 @@ public class DisplayPanel extends JPanel implements ActionListener, MouseListene
     private Timer timer;
     private boolean fishingRodOut;
     private FishingRodPullIn fishingRodPullIn;
-    private boolean temp;
+    public boolean temp;
     private boolean fishingTime;
-    private int fishingTimerTime;
-    private boolean fishOnHook;
-    private Fish fish;
-    private fishingTimer fishingTimer;
+    private FishingQTE fishing;
+    public Fish fish;
 
     public DisplayPanel() {
         fishingRodOut = false;
@@ -25,18 +23,16 @@ public class DisplayPanel extends JPanel implements ActionListener, MouseListene
         background = new Background();
         fishingRodFishing = new FishingRodFishing();
         fishingRodPullIn = new FishingRodPullIn();
-        fishingTimer = new fishingTimer();
         fishingRodPullIn.storeImages();
-        fishOnHook = false;
         timer = new Timer(1, this);
         timer.start();
-
+        fishing = new FishingQTE(this);
+        fish = new Fish();
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawString(String.valueOf(fishingTimerTime), 10, 10);
 
         g.drawImage(background.getBackground(),0 ,0,null);
         if (fishingRodOut && fishingRodPullIn.getAnimation().timerOn()) {
@@ -46,29 +42,20 @@ public class DisplayPanel extends JPanel implements ActionListener, MouseListene
                 g.drawImage(fishingRodPullIn.getFishingRodAnimation(), 0, 0, null);
             } else {
                 g.drawImage(fishingRodFishing.getFishingRodFishing(), 0, 0, null);
+
             }
         }
-        if (fishingTime){
-            fishingTimer.startTimer();
-            fishingTimerTime = fishingTimer.getNum();
-            int temp2 = (int) (Math.random() * 11) - 10;
-            if (fishingTimerTime >= temp2 - 5 && fishingTimerTime <= temp2 + 5) {
-                fishOnHook = true;
-            } else {
-                fishOnHook = false;
-            }
-            if (fishOnHook){
-                g.drawString("Fish on hook", 400, 10);
-                System.out.println("Fish on hook");
-                fishingLogic();
-                if (!temp) {
-                    g.drawString("You caught a " + fish.fishInfo(), 400, 10);
-                    System.out.println("You caught a " + fish.fishInfo());
-                    fishingTimer.stopTimer();
-                    fishOnHook = false;
-                }
+        if (fishing.fishOnHook){
+            g.drawString("Fish on hook", 400, 10);
+            System.out.println("Fish on hook");
+            fishingLogic();
+            if (!temp) {
+                g.drawString("You caught a " + fish.fishInfo(), 400, 10);
+                System.out.println("You caught a " + fish.fishInfo());
+                fishing.fishOnHook = false;
             }
         }
+        g.drawString(String.valueOf(fishing.fishingTimerTime), 10, 10);
     }
 
     public void fishingLogic(){
@@ -100,6 +87,7 @@ public class DisplayPanel extends JPanel implements ActionListener, MouseListene
                 fishingRodPullIn.storeImages();
                 fishingRodPullIn.getAnimation().startTimer();
                 fishingTime = true;
+                fishing.fishOnHookAlert();
                 System.out.println("Fishing rod released");
             }else {
                 temp = false;

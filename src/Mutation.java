@@ -3,9 +3,9 @@ public class Mutation {
     private String name;
     public Mutation(String name){
         this.name = name;
-        if (name.equals("Rotting")) {
+        if (name.equals("ROTTING")) {
             multiplier = 0.30;
-        } else if (name.equals("Neon")) {
+        } else if (name.equals("NEON")) {
             multiplier = 100;
         }
     }
@@ -13,5 +13,9 @@ public class Mutation {
 
     public double getMultiplier() {
         return multiplier;
+    }
+
+    public String getName() {
+        return name;
     }
 }

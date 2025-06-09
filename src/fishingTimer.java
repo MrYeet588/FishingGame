@@ -19,10 +19,8 @@ public class fishingTimer implements ActionListener {
         return num;
     }
     public void startTimer(){
-        timer.start();
-    }
-    public void stopTimer(){
-        timer.stop();
         num = 0;
+        timer.restart();
+        timer.start();
     }
 }
