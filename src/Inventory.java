@@ -16,6 +16,16 @@ public class Inventory {
         return caughtFish;
     }
 
+    // New method to get a copy of the fish list (for external use)
+    public List<Fish> getFishList() {
+        return new ArrayList<>(caughtFish);
+    }
+
+    // Remove a specific fish from the inventory
+    public boolean removeFish(Fish fish) {
+        return caughtFish.remove(fish);
+    }
+
     public int getCount() {
         return caughtFish.size();
     }

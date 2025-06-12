@@ -7,6 +7,8 @@ public class Mutation {
             multiplier = 0.30;
         } else if (name.equals("NEON")) {
             multiplier = 100;
+        } else if (name.equals("OBESE")) {
+            multiplier = 300;
         }
     }
 
