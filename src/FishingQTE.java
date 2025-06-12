@@ -3,7 +3,7 @@ public class FishingQTE {
     public int fishingTimerTime;
     public boolean fishOnHook;
     public boolean caughtMessageOn;  // controls caught message display
-    private final int caughtMessageDuration = 5; // seconds to show message
+    private final int caughtMessageDuration = 2; // seconds to show message
     private int caughtMessageCounter;  // counts seconds elapsed for caught message
     private DisplayPanel panel;
 
@@ -31,7 +31,7 @@ public class FishingQTE {
         // Rod is out
         if (!fishOnHook) {
             // Fish hasn't bitten yet, check if it should bite
-            int biteTime = (int) ((Math.random() * 6) + 5); // 5-10 seconds
+            int biteTime = (int) (Math.random() * 11) + 10; // 5-10 seconds
             if (fishingTimerTime >= biteTime) {
                 fishOnHook = true;
                 // Stop timer or let it run if you want to show countdown etc.

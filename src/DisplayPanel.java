@@ -28,7 +28,7 @@ public class DisplayPanel extends JPanel implements ActionListener, MouseListene
     private Timer minigameTimer;
     private int barY, fishY;
     private int fishVelocity;
-    private final int barHeight = 50;
+    private final int barHeight = 75;
     private final int fishSize = 20;
     private boolean pressingSpace;
     private double progress;
@@ -270,7 +270,7 @@ public class DisplayPanel extends JPanel implements ActionListener, MouseListene
         g.fillRect(0, 0, getWidth(), getHeight());
 
         g.setColor(Color.WHITE);
-        g.drawRect(48, 0, 24, 400);
+        g.drawRect(48, 0, 24, 425);
 
         g.setColor(Color.GREEN);
         g.fillRect(50, barY, 20, barHeight);
