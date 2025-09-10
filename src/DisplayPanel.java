@@ -46,7 +46,7 @@ public class DisplayPanel extends JPanel implements ActionListener, MouseListene
     private int selectedFishIndex = -1;
 
     // Button bounds
-    private final Rectangle shopToggleButtonBounds = new Rectangle(820, 1050, 150, 40);
+    private final Rectangle shopToggleButtonBounds = new Rectangle(820, 900, 150, 40);
     private final Rectangle sellButtonBounds = new Rectangle(700, 550, 150, 40);
 
     public DisplayPanel() {

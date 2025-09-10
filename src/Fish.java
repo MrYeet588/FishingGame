@@ -60,7 +60,7 @@ public class Fish {
 
     // Existing method, kept for backward compatibility
     public double getSellValue() {
-        return weight * (mutation != null ? mutation.getMultiplier() : 1);
+        return (((int)((weight * (mutation != null ? mutation.getMultiplier() : 1)) * 100 + 0.5)) / 100.0);
     }
 
     // New method with same logic, explicit naming for selling price
